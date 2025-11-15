@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen p-4 flex flex-col items-center justify-center overflow-hidden">
-    <h1 class="text-xl font-bold mb-4 text-center">Bienvenido a Look-It</h1>
+  <img src="/src/images/logo_transparente.png" alt="Logo Look-It" class="mb-4 w-48 h-auto mx-auto" />
     <div class="mb-4 w-full flex justify-center">
       <AuthButton />
     </div>

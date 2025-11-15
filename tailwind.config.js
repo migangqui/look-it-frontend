@@ -12,6 +12,9 @@ module.exports = {
         'color-4': 'var(--color-4)',
         'color-5': 'var(--color-5)',
       },
+      fontFamily: {
+        'sans': ['Poppins', 'ui-sans-serif', 'system-ui'],
+      },
     },
   },
   plugins: [],

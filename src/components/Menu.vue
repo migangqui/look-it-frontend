@@ -1,7 +1,7 @@
 <template>
   <nav class="w-full bg-color-1 text-white shadow-md fixed top-0 left-0 z-50">
     <div class="container mx-auto flex items-center justify-between h-16 px-4">
-      <div class="text-2xl font-bold">Look-It</div>
+  <img src="/src/images/iso_transparente_negativo.png" alt="Logo Look-It" class="h-12 w-auto" />
       <button @click="toggleMenu" class="md:hidden focus:outline-none" aria-label="Abrir menú">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
