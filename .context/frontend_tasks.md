@@ -2,7 +2,7 @@
 
 ## Fase 1: Setup / Fundacional
 
-*   [ ] **[Setup - Frontend Config]** Instalar y configurar Tailwind CSS en el proyecto Vue, incluyendo el archivo tailwind.config.js.
+*   [X] **[Setup - Frontend Config]** Instalar y configurar Tailwind CSS en el proyecto Vue, incluyendo el archivo tailwind.config.js.
 
 * * * * *
 
