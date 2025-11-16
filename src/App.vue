@@ -1,6 +1,9 @@
 <template>
-  <router-view />
+  <Menu />
+  <div class="pt-16">
+    <router-view />
+  </div>
 </template>
 <script setup>
-// Componente raíz
+import Menu from './components/Menu.vue';
 </script>

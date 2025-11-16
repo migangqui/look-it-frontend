@@ -3,13 +3,13 @@
 1. **Ir a la ruta del proyecto:**
    
    ```bash
-   cd "/Users/mangelquintanilla/Documents/DEV/MIO/CURSO IA/PROYECTO/look-it/look-it-backend"
+   cd "/Users/mangelquintanilla/Documents/DEV/MIO/CURSO_IA/PROYECTO/look-it/look-it-frontend"
    ```
 
 2. **Verificar y ejecutar el comando para añadir archivos:**
    
    ```bash
-   cd "/Users/mangelquintanilla/Documents/DEV/MIO/CURSO IA/PROYECTO/look-it/look-it-backend" & git add .
+   git add .
    ```
    
    *Este comando añade todos los archivos modificados al área de preparación (staging). Verifica que el comando es correcto antes de ejecutarlo.*
