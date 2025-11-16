@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Colores principales de la aplicación */
 .color-1 {
 	color: #4cae4f;
@@ -22,10 +26,6 @@
 	--color-4: #c7e5c8;
 	--color-5: #eaf6eb;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 body {
 	font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
