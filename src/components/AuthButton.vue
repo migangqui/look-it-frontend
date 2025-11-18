@@ -49,7 +49,7 @@
       const jwt_token = await loginWithGoogle(response.credential);
       authStore.setToken(jwt_token);
     } catch (e) {
-      alert('Error en el login.');
+      alert('Login error.');
     }
   }
 </script>
