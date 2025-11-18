@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.12.2",
     "vue": "^3.4.0",
     "vue-router": "^4.6.3"
   },
