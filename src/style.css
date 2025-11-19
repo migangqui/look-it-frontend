@@ -21,12 +21,16 @@
 
 :root {
 	--color-1: #1e4a21; /* Verde oscuro para header */
-	--color-2: #2d5f30; /* Verde oscuro hover */
+	--color-2: #2f7442; /* Verde oscuro hover */
 	--color-3: #4cae4f; /* Verde medio para logo */
 	--color-4: #80c684; /* Verde claro */
 	--color-5: #a4d5a6; /* Verde muy claro */
+	--color-6: #343A40; /* Texts color */
+	--bg-color: #f2fbf2; /* Color de fondo general */
 }
 
 body {
 	font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+	background-color: var(--bg-color);
+	color: var(--color-6);
 }

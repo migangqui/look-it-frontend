@@ -1,7 +1,20 @@
 
 <template>
-  <button class="bg-white text-gray-800 px-6 py-3 rounded-lg border border-gray-300 shadow-sm hover:bg-gray-50 hover:border-gray-400 flex items-center gap-3 transition-colors" @click="signInWithGoogle">
-    <span class="inline-block w-5 h-5">
+  <button
+    class="bg-white text-gray-800 px-6 py-3 rounded-lg border border-gray-300 shadow-sm hover:bg-gray-50 hover:border-gray-400 flex items-center gap-3 transition-colors"
+    :class="{ 'opacity-50 cursor-not-allowed': isAuthenticating }"
+    @click="signInWithGoogle"
+    :disabled="isAuthenticating"
+  >
+    <!-- Loader spinner cuando está authenticando -->
+    <span v-if="isAuthenticating" class="inline-block w-5 h-5">
+      <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    </span>
+    <!-- Logo de Google cuando no está authenticando -->
+    <span v-else class="inline-block w-5 h-5">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20" height="20">
         <g>
           <path fill="#EA4335" d="M24 9.5c3.54 0 6.7 1.23 9.19 3.25l6.85-6.85C36.13 2.36 30.45 0 24 0 14.64 0 6.4 5.48 2.44 13.44l7.98 6.21C12.13 13.13 17.62 9.5 24 9.5z"/>
@@ -12,13 +25,23 @@
         </g>
       </svg>
     </span>
-    <span class="font-medium">Login with Google</span>
+    <span class="font-medium">{{ isAuthenticating ? 'Signing in...' : 'Login with Google' }}</span>
   </button>
 </template>
 
 <script setup>
+  import { ref, watch } from 'vue';
   import { authStore } from '../stores/auth_store.js';
   import { loginWithGoogle } from '../services/auth_api.js';
+
+  const isAuthenticating = ref(false);
+
+  // Watcher para desactivar el loading cuando la autenticación se complete
+  watch(() => authStore.isAuthenticated, (newValue) => {
+    if (newValue) {
+      isAuthenticating.value = false;
+    }
+  });
 
   function loadGoogleScript() {
     if (document.getElementById('google-client-script')) return;
@@ -37,6 +60,7 @@
       alert('Google Sign-In script not loaded yet.');
       return;
     }
+    isAuthenticating.value = true; // Activar el loading
     window.google.accounts.id.initialize({
       client_id: '415464940557-l3t9cv90k90rmctqrso3lqa83modtkp6.apps.googleusercontent.com',
       callback: handleCredentialResponse
@@ -48,7 +72,9 @@
     try {
       const jwt_token = await loginWithGoogle(response.credential);
       authStore.setToken(jwt_token);
+      // El loading se desactiva automáticamente por el watcher cuando isAuthenticated se vuelve true
     } catch (e) {
+      isAuthenticating.value = false; // Desactivar el loading en caso de error
       alert('Login error.');
     }
   }
