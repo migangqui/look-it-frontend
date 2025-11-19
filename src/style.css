@@ -4,27 +4,27 @@
 
 /* Colores principales de la aplicación */
 .color-1 {
-	color: #4cae4f;
+	color: #1e4a21;
 }
 .color-2 {
-	color: #80c684;
+	color: #2d5f30;
 }
 .color-3 {
-	color: #a4d5a6;
+	color: #4cae4f;
 }
 .color-4 {
-	color: #c7e5c8;
+	color: #80c684;
 }
 .color-5 {
-	color: #eaf6eb;
+	color: #a4d5a6;
 }
 
 :root {
-	--color-1: #4cae4f;
-	--color-2: #80c684;
-	--color-3: #a4d5a6;
-	--color-4: #c7e5c8;
-	--color-5: #eaf6eb;
+	--color-1: #1e4a21; /* Verde oscuro para header */
+	--color-2: #2d5f30; /* Verde oscuro hover */
+	--color-3: #4cae4f; /* Verde medio para logo */
+	--color-4: #80c684; /* Verde claro */
+	--color-5: #a4d5a6; /* Verde muy claro */
 }
 
 body {
