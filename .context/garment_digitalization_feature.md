@@ -206,7 +206,7 @@ const previewUrl = ref(null);
 
 ---
 
-### C. Vista ProfileView (`src/views/ProfileView.vue`)
+### C. Vista WardrobeView (`src/views/WardrobeView.vue`)
 
 #### C.1. Integrar componente GarmentUpload
 
