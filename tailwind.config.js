@@ -12,6 +12,7 @@ module.exports = {
         'color-4': 'var(--color-4)',
         'color-5': 'var(--color-5)',
         'color-6': 'var(--color-6)',
+        'color-7': 'var(--color-7)',
         'bg-color': 'var(--bg-color)',
       },
       fontFamily: {

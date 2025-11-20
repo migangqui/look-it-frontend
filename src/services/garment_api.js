@@ -6,7 +6,7 @@ export async function uploadGarment(file) {
   const formData = new FormData();
   formData.append('file', file);
   
-  const response = await fetch(`${BASE_URL}/api/v1/garment`, {
+  const response = await fetch(`${BASE_URL}/api/v1/garments`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${authStore.token}`,
