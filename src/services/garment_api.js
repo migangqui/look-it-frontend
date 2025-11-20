@@ -7,8 +7,3 @@ export async function uploadGarment(file) {
     body: formData
   });
 }
-
-export async function getLook() {
-  // Llamada al backend para obtener el look generado
-  return fetch('/api/v1/look');
-}
