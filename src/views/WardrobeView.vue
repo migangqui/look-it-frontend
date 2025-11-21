@@ -4,41 +4,7 @@
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl font-bold text-gray-800">My Wardrobe</h1>
       <!-- New Garment Button -->
-      <button
-        @click="toggleUploadForm"
-        class="bg-color-7 hover:bg-color-5 text-white w-12 h-12 rounded-full font-medium transition-colors flex items-center justify-center shadow-lg hover:shadow-xl"
-      >
-        <svg
-          v-if="!showUploadForm"
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
-            d="M12 4v16m8-8H4"
-          />
-        </svg>
-        <svg
-          v-else
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
-            d="M20 12H4"
-          />
-        </svg>
-      </button>
+      <GarmentAddButton :is-open="showUploadForm" @toggle="toggleUploadForm" />
     </div>
 
     <!-- Garment Upload Component -->
@@ -146,6 +112,7 @@ import GarmentUpload from '../components/GarmentUpload.vue';
 import GarmentEditModal from '../components/GarmentEditModal.vue';
 import GarmentCard from '../components/GarmentCard.vue';
 import GarmentDeleteModal from '../components/GarmentDeleteModal.vue';
+import GarmentAddButton from '../components/GarmentAddButton.vue';
 
 const garments = ref([]);
 const loading = ref(true);

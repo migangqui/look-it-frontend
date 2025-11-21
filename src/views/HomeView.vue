@@ -2,7 +2,7 @@
   <div class="min-h-screen flex flex-col items-center justify-center overflow-hidden">
     <div class="flex flex-col items-center justify-center space-y-4 px-4">
       <!-- Logo verde oscuro -->
-      <img src="/src/images/logo_transparente.png" alt="Logo Look-It" class="w-72 h-auto" />
+      <img src="https://storage.googleapis.com/look-it-storage/app/logos/logo_transparente.png" alt="Logo Look-It" class="w-72 h-auto" />
       
       <!-- Mensaje de bienvenida -->
       <h2 v-if="authStore.isAuthenticated" class="text-2xl font-bold text-gray-900">Welcome Back!</h2>

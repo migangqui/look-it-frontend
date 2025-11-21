@@ -28,7 +28,7 @@
     <!-- Garment Image -->
     <div class="aspect-square bg-gray-100 overflow-hidden">
       <img
-        :src="garment.storage_url || '/placeholder.jpg'"
+        :src="garment.image_name || '/placeholder.jpg'"
         :alt="garment.name || 'Garment'"
         class="w-full h-full object-cover"
         @error="handleImageError"
@@ -74,7 +74,7 @@ function formatDate(dateString) {
   if (!dateString) return '';
   const date = new Date(dateString);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
+  return date.toLocaleDateString('en-GB', options);
 }
 
 function handleImageError(event) {
