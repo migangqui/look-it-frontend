@@ -51,3 +51,21 @@ export async function deleteGarment(garmentId) {
   
   return true;
 }
+
+export async function updateGarment(garmentId, garmentData) {
+  const response = await fetch(`${BASE_URL}/api/v1/garments/${garmentId}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${authStore.token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(garmentData)
+  });
+  
+  if (!response.ok) {
+    throw new Error('Error updating garment');
+  }
+  
+  const data = await response.json();
+  return data;
+}

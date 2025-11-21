@@ -104,64 +104,23 @@
 
     <!-- Garments Grid -->
     <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-      <div
+      <GarmentCard
         v-for="garment in garments"
         :key="garment.id"
-        class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow relative group"
-      >
-        <!-- Delete Button -->
-        <button
-          @click="handleDeleteGarment(garment.id)"
-          class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
-          title="Delete garment"
-        >
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-
-        <!-- Garment Image -->
-        <div class="aspect-square bg-gray-100 overflow-hidden">
-          <img
-            :src="garment.storage_url || '/placeholder.jpg'"
-            :alt="garment.name || 'Garment'"
-            class="w-full h-full object-cover"
-            @error="handleImageError"
-          />
-        </div>
-
-        <!-- Garment Info -->
-        <div class="p-4">
-          <h3 class="font-semibold text-gray-800 mb-1 truncate uppercase">
-            {{ garment.role || 'Unnamed Garment' }}
-          </h3>
-          <p class="text-sm text-gray-600 mb-2">
-            {{ garment.type || 'Uncategorized' }}
-          </p>
-          <div v-if="garment.color" class="flex items-center gap-2 mb-2">
-            <div
-              class="w-5 h-5 rounded-full border border-gray-300 shadow-sm"
-              :style="{ backgroundColor: garment.color }"
-              :title="garment.color">
-            </div>
-          </div>
-          <p class="text-xs text-gray-500">
-            {{ formatDate(garment.creation_date) }}
-          </p>
-        </div>
-      </div>
+        :garment="garment"
+        @click="handleGarmentClick"
+        @delete="handleDeleteGarment"
+      />
     </div>
+
+    <!-- Edit Modal -->
+    <GarmentEditModal
+      v-if="showEditModal"
+      :garment="garmentToEdit"
+      :show="showEditModal"
+      @close="closeEditModal"
+      @saved="handleGarmentSaved"
+    />
 
     <!-- Success Message -->
     <div
@@ -172,67 +131,21 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div
-      v-if="showDeleteModal"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-      @click.self="closeDeleteModal"
-    >
-      <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 animate-modal-in">
-        <!-- Modal Header -->
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-xl font-bold text-gray-800">Confirmar eliminación</h3>
-          <button
-            @click="closeDeleteModal"
-            class="text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <!-- Modal Body -->
-        <div class="mb-6">
-          <p class="text-gray-600">
-            ¿Estás seguro de que deseas eliminar esta prenda? Esta acción no se puede deshacer.
-          </p>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="flex justify-end gap-3">
-          <button
-            @click="closeDeleteModal"
-            class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors"
-          >
-            Cancelar
-          </button>
-          <button
-            @click="confirmDelete"
-            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
-          >
-            Eliminar
-          </button>
-        </div>
-      </div>
-    </div>
+    <GarmentDeleteModal
+      :show="showDeleteModal"
+      @close="closeDeleteModal"
+      @confirm="confirmDelete"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { getGarments, deleteGarment } from '../services/garment_api.js';
+import { getGarments, deleteGarment, updateGarment } from '../services/garment_api.js';
 import GarmentUpload from '../components/GarmentUpload.vue';
+import GarmentEditModal from '../components/GarmentEditModal.vue';
+import GarmentCard from '../components/GarmentCard.vue';
+import GarmentDeleteModal from '../components/GarmentDeleteModal.vue';
 
 const garments = ref([]);
 const loading = ref(true);
@@ -241,18 +154,8 @@ const successMessage = ref('');
 const showUploadForm = ref(false);
 const showDeleteModal = ref(false);
 const garmentToDelete = ref(null);
-
-function formatDate(dateString) {
-  if (!dateString) return '';
-  const date = new Date(dateString);
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
-}
-
-function handleImageError(event) {
-  // Set a placeholder image or hide the broken image
-  event.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23ddd" width="200" height="200"/%3E%3Ctext fill="%23999" font-family="sans-serif" font-size="18" dy="10.5" font-weight="bold" x="50%25" y="50%25" text-anchor="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
-}
+const showEditModal = ref(false);
+const garmentToEdit = ref(null);
 
 async function loadGarments() {
   try {
@@ -272,17 +175,12 @@ function toggleUploadForm() {
 }
 
 async function handleGarmentUploaded(garmentData) {
-  // Reload the garments list
-  await loadGarments();
-  
   // Hide upload form after successful upload
   showUploadForm.value = false;
   
-  // Show success message
-  successMessage.value = 'Garment uploaded successfully!';
-  setTimeout(() => {
-    successMessage.value = '';
-  }, 3000);
+  // Open edit modal with the newly uploaded garment
+  garmentToEdit.value = garmentData;
+  showEditModal.value = true;
 }
 
 function handleDeleteGarment(garmentId) {
@@ -326,6 +224,44 @@ async function confirmDelete() {
   }
 }
 
+function handleGarmentClick(garment) {
+  garmentToEdit.value = garment;
+  showEditModal.value = true;
+}
+
+function closeEditModal() {
+  showEditModal.value = false;
+  garmentToEdit.value = null;
+}
+
+async function handleGarmentSaved(updatedData) {
+  if (!garmentToEdit.value || !garmentToEdit.value.id) {
+    return;
+  }
+
+  try {
+    await updateGarment(garmentToEdit.value.id, updatedData);
+    await loadGarments();
+    
+    // Close modal
+    closeEditModal();
+    
+    // Show success message
+    successMessage.value = 'Garment updated successfully!';
+    setTimeout(() => {
+      successMessage.value = '';
+    }, 3000);
+  } catch (err) {
+    error.value = err.message || 'Error updating garment';
+    console.error('Error updating garment:', err);
+    
+    // Clear error after 3 seconds
+    setTimeout(() => {
+      error.value = null;
+    }, 3000);
+  }
+}
+
 onMounted(() => {
   loadGarments();
 });
@@ -343,23 +279,8 @@ onMounted(() => {
   }
 }
 
-@keyframes modal-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
-}
-
-.animate-modal-in {
-  animation: modal-in 0.2s ease-out;
 }
 </style>
 
