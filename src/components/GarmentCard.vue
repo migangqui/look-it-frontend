@@ -38,7 +38,7 @@
     <!-- Garment Info -->
     <div class="p-4">
       <h3 class="font-semibold text-gray-800 mb-1 truncate uppercase">
-        {{ garment.role || 'Unnamed Garment' }}
+        {{ (garment.role || 'Unnamed Garment').replaceAll('_', ' ') }}
       </h3>
       <p class="text-sm text-gray-600 mb-2">
         {{ garment.type || 'Uncategorized' }}

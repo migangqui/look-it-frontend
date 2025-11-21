@@ -146,7 +146,7 @@ const isDragging = ref(false);
 const state = ref('idle'); // 'idle' | 'uploading' | 'success' | 'error'
 const errorMessage = ref('');
 
-const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/avif'];
 
 function triggerFileInput() {
   fileInput.value?.click();
@@ -154,7 +154,7 @@ function triggerFileInput() {
 
 function validateFile(file) {
   if (!validTypes.includes(file.type)) {
-    errorMessage.value = 'Please select a valid image file (JPEG, PNG, or WebP)';
+    errorMessage.value = 'Please select a valid image file (JPEG, PNG, WebP or AVIF)';
     state.value = 'error';
     setTimeout(() => {
       resetState();

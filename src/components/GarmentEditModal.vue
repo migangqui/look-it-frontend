@@ -55,11 +55,13 @@
             v-model="formData.role"
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-color-7 focus:border-transparent"
           >
-            <option value="">Select a role</option>
-            <option value="top">Top</option>
-            <option value="outwear">Outwear</option>
+            <option value="">Select a role...</option>
+            <option value="base_top">Base Top</option>
+            <option value="mid_top">Mid Top</option>
+            <option value="outwear_top">Outwear Top</option>
             <option value="bottom">Bottom</option>
             <option value="footwear">Footwear</option>
+            <option value="full_body">Full body</option>
           </select>
         </div>
 
@@ -86,18 +88,21 @@
           </div>
         </div>
 
-        <!-- Occasion Field -->
+        <!-- Occassion Field -->
         <div>
-          <label for="occasion" class="block text-sm font-medium text-gray-700 mb-1">
-            Occasion
+          <label for="role" class="block text-sm font-medium text-gray-700 mb-1">
+            Occassion
           </label>
-          <input
-            id="occasion"
+          <select
+            id="occassion"
             v-model="formData.occasion"
-            type="text"
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-color-7 focus:border-transparent"
-            placeholder="e.g., Casual, Formal, Sport"
-          />
+          >
+            <option value="">Select a occasion...</option>
+            <option value="casual">Casual</option>
+            <option value="formal">Formal</option>
+            <option value="all">All situations</option>
+          </select>
         </div>
 
         <!-- Error Message -->
@@ -261,13 +266,6 @@ function handleClose() {
 
 async function handleSave() {
   if (!isFormValid.value || isSaving.value) {
-    return;
-  }
-
-  // Validate role
-  const validRoles = ['top', 'outwear', 'bottom', 'footwear'];
-  if (!validRoles.includes(formData.value.role)) {
-    errorMessage.value = 'Please select a valid role';
     return;
   }
 

@@ -7,7 +7,7 @@
     <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 animate-modal-in">
       <!-- Modal Header -->
       <div class="flex items-center justify-between mb-4">
-        <h3 class="text-xl font-bold text-gray-800">Confirmar eliminación</h3>
+        <h3 class="text-xl font-bold text-gray-800">Confirm Deletion</h3>
         <button
           @click="$emit('close')"
           class="text-gray-400 hover:text-gray-600 transition-colors"
@@ -32,7 +32,7 @@
       <!-- Modal Body -->
       <div class="mb-6">
         <p class="text-gray-600">
-          ¿Estás seguro de que deseas eliminar esta prenda? Esta acción no se puede deshacer.
+          Are you sure you want to delete this garment? This action cannot be undone.
         </p>
       </div>
 
@@ -42,13 +42,13 @@
           @click="$emit('close')"
           class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors"
         >
-          Cancelar
+          Cancel
         </button>
         <button
           @click="$emit('confirm')"
           class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
         >
-          Eliminar
+          Delete
         </button>
       </div>
     </div>
