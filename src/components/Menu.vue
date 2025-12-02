@@ -2,7 +2,7 @@
   <nav class="w-full bg-color-2 text-white shadow-md fixed top-0 left-0 z-50">
     <div class="container mx-auto flex items-center justify-between h-16 px-4">
       <div class="flex items-center gap-3">
-        <img src="/src/images/iso_transparente_negativo.png" alt="Logo Look-It" class="h-10 w-auto" />
+        <img src="https://storage.googleapis.com/look-it-storage/app/logos/iso_transparente_negativo.png" alt="Logo Look-It" class="h-10 w-auto" />
         <span class="text-white font-semibold text-lg">Look-it</span>
       </div>
       <button @click="toggleMenu" class="md:hidden focus:outline-none text-white" aria-label="Abrir menú">
@@ -15,13 +15,16 @@
         'md:flex md:flex-row md:items-center md:space-x-6 md:static md:w-auto md:bg-transparent md:py-0 md:px-0 md:z-auto'
       ]">
         <li>
-          <router-link to="/" class="hover:underline py-2 md:py-0 text-white active-link menu-link" @click="closeMenu">Inicio</router-link>
+          <router-link to="/" class="hover:underline py-2 md:py-0 text-white active-link menu-link" @click="closeMenu">Home</router-link>
         </li>
         <li v-if="authStore.isAuthenticated">
-          <router-link to="/profile" class="hover:underline py-2 md:py-0 text-white active-link menu-link" @click="closeMenu">Perfil</router-link>
+          <router-link to="/profile" class="hover:underline py-2 md:py-0 text-white active-link menu-link" @click="closeMenu">Profile</router-link>
         </li>
         <li v-if="authStore.isAuthenticated">
-          <button @click="handleLogout" id="logout-button" class="hover:underline py-2 md:py-0 bg-transparent border-none text-white cursor-pointer active-link menu-link flex items-center gap-2" aria-label="Cerrar sesión">
+          <router-link to="/wardrobe" class="hover:underline py-2 md:py-0 text-white active-link menu-link" @click="closeMenu">Wardrobe</router-link>
+        </li>
+        <li v-if="authStore.isAuthenticated">
+          <button @click="handleLogout" id="logout-button" class="hover:underline py-2 md:py-0 bg-transparent border-none text-white cursor-pointer active-link menu-link flex items-center gap-2" aria-label="Logout">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
             </svg>

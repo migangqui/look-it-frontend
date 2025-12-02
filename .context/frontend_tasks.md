@@ -8,11 +8,11 @@
 
 ## Fase 2: Historia 1: Autenticación Rápida (MVP)
 
-*   [ ] **[HU 1 Frontend]** Instalar y configurar la librería de Google Sign-In en el proyecto Vue.
+*   [X] **[HU 1 Frontend]** Instalar y configurar la librería de Google Sign-In en el proyecto Vue.
 
-*   [ ] **[HU 1 Frontend]** Crear el componente visual src/components/AuthButton.vue (usando Tailwind CSS) para gestionar el flujo de inicio de sesión con Google.
+*   [X] **[HU 1 Frontend]** Crear el componente visual src/components/AuthButton.vue (usando Tailwind CSS) para gestionar el flujo de inicio de sesión con Google.
 
-*   [ ] **[HU 1 Frontend]** Crear la *store* de autenticación (`src/stores/auth_store.js`) para manejar el estado del token.
+*   [X] **[HU 1 Frontend]** Crear la *store* de autenticación (`src/stores/auth_store.js`) para manejar el estado del token.
 
 * * * * *
 
