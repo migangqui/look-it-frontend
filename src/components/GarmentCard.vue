@@ -53,6 +53,30 @@
           :title="garment.color">
         </div>
       </div>
+      <div
+        v-if="garment.warmth || getPatternLabel(garment.pattern) || getPatternIntensityLabel(garment.pattern_intensity)"
+        class="flex flex-wrap items-center gap-2 mb-2 text-xs text-gray-600"
+      >
+        <div v-if="garment.warmth" class="flex items-center gap-1">
+          <span class="font-semibold">Warmth</span>
+          <div class="flex gap-0.5">
+            <span
+              v-for="level in 5"
+              :key="level"
+              class="w-1.5 h-3 rounded-full"
+              :class="level <= Number(garment.warmth) ? 'bg-color-7' : 'bg-gray-200'"
+            ></span>
+          </div>
+        </div>
+        <div v-if="getPatternLabel(garment.pattern)" class="flex items-center gap-1">
+          <span class="font-semibold">Pattern</span>
+          <span>{{ getPatternLabel(garment.pattern) }}</span>
+        </div>
+        <div v-if="getPatternIntensityLabel(garment.pattern_intensity)" class="flex items-center gap-1">
+          <span class="font-semibold">Intensity</span>
+          <span>{{ getPatternIntensityLabel(garment.pattern_intensity) }}</span>
+        </div>
+      </div>
       <p class="text-xs text-gray-500">
         {{ formatDate(garment.creation_date) }}
       </p>
@@ -61,6 +85,20 @@
 </template>
 
 <script setup>
+const patternLabels = {
+  solid: 'Solid',
+  stripes: 'Stripes',
+  checks: 'Checks',
+  micro_print: 'Micro print',
+  print: 'Print'
+};
+
+const patternIntensityLabels = {
+  1: 'Subtle',
+  2: 'Medium',
+  3: 'Strong'
+};
+
 defineProps({
   garment: {
     type: Object,
@@ -77,9 +115,19 @@ function formatDate(dateString) {
   return date.toLocaleDateString('en-GB', options);
 }
 
+function getPatternLabel(pattern) {
+  if (!pattern) return '';
+  return patternLabels[pattern] || '';
+}
+
+function getPatternIntensityLabel(intensity) {
+  if (intensity == null) return '';
+  const key = Number(intensity);
+  return patternIntensityLabels[key] || '';
+}
+
 function handleImageError(event) {
   // Set a placeholder image or hide the broken image
   event.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23ddd" width="200" height="200"/%3E%3Ctext fill="%23999" font-family="sans-serif" font-size="18" dy="10.5" font-weight="bold" x="50%25" y="50%25" text-anchor="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
 }
 </script>
-

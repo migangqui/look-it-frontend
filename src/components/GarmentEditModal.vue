@@ -90,7 +90,7 @@
 
         <!-- Occassion Field -->
         <div>
-          <label for="role" class="block text-sm font-medium text-gray-700 mb-1">
+      <label for="role" class="block text-sm font-medium text-gray-700 mb-1">
             Occassion
           </label>
           <select
@@ -102,6 +102,62 @@
             <option value="casual">Casual</option>
             <option value="formal">Formal</option>
             <option value="all">All situations</option>
+          </select>
+        </div>
+
+        <!-- Warmth Field -->
+        <div>
+          <label for="warmth" class="block text-sm font-medium text-gray-700 mb-1">
+            Warmth
+          </label>
+          <select
+            id="warmth"
+            v-model="formData.warmth"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-color-7 focus:border-transparent"
+          >
+            <option :value="null">Not specified</option>
+            <option v-for="level in 5" :key="level" :value="level">
+              {{ level }}
+            </option>
+          </select>
+          <p class="text-xs text-gray-500 mt-1">
+            1 = very light, 5 = very warm
+          </p>
+        </div>
+
+        <!-- Pattern Field -->
+        <div>
+          <label for="pattern" class="block text-sm font-medium text-gray-700 mb-1">
+            Pattern
+          </label>
+          <select
+            id="pattern"
+            v-model="formData.pattern"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-color-7 focus:border-transparent"
+          >
+            <option value="">No pattern</option>
+            <option value="solid">Solid</option>
+            <option value="stripes">Stripes</option>
+            <option value="checks">Checks</option>
+            <option value="micro_print">Micro print</option>
+            <option value="print">Print</option>
+          </select>
+        </div>
+
+        <!-- Pattern Intensity Field -->
+        <div>
+          <label for="pattern-intensity" class="block text-sm font-medium text-gray-700 mb-1">
+            Pattern intensity
+          </label>
+          <select
+            id="pattern-intensity"
+            v-model="formData.pattern_intensity"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-color-7 focus:border-transparent"
+          >
+            <option :value="null">Not specified</option>
+            <option :value="1">Subtle</option>
+            <option :value="2">Medium</option>
+            <option :value="3">Strong</option>
           </select>
         </div>
 
@@ -174,7 +230,10 @@ const formData = ref({
   type: '',
   role: '',
   color: '',
-  occasion: ''
+  occasion: '',
+  warmth: null,
+  pattern: '',
+  pattern_intensity: null
 });
 
 const colorHex = ref('#000000');
@@ -192,7 +251,10 @@ watch(() => props.garment, (newGarment) => {
       type: newGarment.type || '',
       role: newGarment.role || '',
       color: newGarment.color || '',
-      occasion: newGarment.occasion || ''
+      occasion: newGarment.occasion || '',
+      warmth: newGarment.warmth != null ? Number(newGarment.warmth) : null,
+      pattern: newGarment.pattern || '',
+      pattern_intensity: newGarment.pattern_intensity != null ? Number(newGarment.pattern_intensity) : null
     };
     
     // Convert RGB string to hex for color picker
@@ -211,7 +273,10 @@ watch(() => props.show, (isShowing) => {
       type: props.garment.type || '',
       role: props.garment.role || '',
       color: props.garment.color || '',
-      occasion: props.garment.occasion || ''
+      occasion: props.garment.occasion || '',
+      warmth: props.garment.warmth != null ? Number(props.garment.warmth) : null,
+      pattern: props.garment.pattern || '',
+      pattern_intensity: props.garment.pattern_intensity != null ? Number(props.garment.pattern_intensity) : null
     };
     
     if (formData.value.color) {
@@ -269,11 +334,37 @@ async function handleSave() {
     return;
   }
 
+  const allowedPatterns = ['solid', 'stripes', 'checks', 'micro_print', 'print'];
+
   // Validate color format
   const colorRegex = /^rgb\(\d+\.\d+,\d+\.\d+,\d+\.\d+\)$/;
   if (!colorRegex.test(formData.value.color)) {
     errorMessage.value = 'Invalid color format';
     return;
+  }
+
+  // Validate warmth (1-5) if present
+  if (formData.value.warmth != null) {
+    const warmth = Number(formData.value.warmth);
+    if (!Number.isInteger(warmth) || warmth < 1 || warmth > 5) {
+      errorMessage.value = 'Warmth must be between 1 and 5';
+      return;
+    }
+  }
+
+  // Validate pattern enum if present
+  if (formData.value.pattern && !allowedPatterns.includes(formData.value.pattern)) {
+    errorMessage.value = 'Invalid pattern value';
+    return;
+  }
+
+  // Validate pattern_intensity (1-3) if present
+  if (formData.value.pattern_intensity != null) {
+    const intensity = Number(formData.value.pattern_intensity);
+    if (!Number.isInteger(intensity) || intensity < 1 || intensity > 3) {
+      errorMessage.value = 'Pattern intensity must be between 1 and 3';
+      return;
+    }
   }
 
   try {
@@ -284,7 +375,10 @@ async function handleSave() {
       type: formData.value.type || null,
       role: formData.value.role,
       color: formData.value.color,
-      occasion: formData.value.occasion || null
+      occasion: formData.value.occasion || null,
+      warmth: formData.value.warmth != null ? Number(formData.value.warmth) : null,
+      pattern: formData.value.pattern || null,
+      pattern_intensity: formData.value.pattern_intensity != null ? Number(formData.value.pattern_intensity) : null
     };
 
     emit('saved', updatedData);
@@ -312,4 +406,3 @@ async function handleSave() {
   animation: modal-in 0.2s ease-out;
 }
 </style>
-
