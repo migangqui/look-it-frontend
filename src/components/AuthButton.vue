@@ -70,8 +70,8 @@
 
   async function handleCredentialResponse(response) {
     try {
-      const jwt_token = await loginWithGoogle(response.credential);
-      authStore.setToken(jwt_token);
+      const login_response = await loginWithGoogle(response.credential);
+      authStore.setToken(login_response.token);
       // El loading se desactiva automáticamente por el watcher cuando isAuthenticated se vuelve true
     } catch (e) {
       isAuthenticating.value = false; // Desactivar el loading en caso de error
