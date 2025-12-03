@@ -18,9 +18,9 @@
 
 ### Fase 3: Historia 2: Digitalización de Prendas (MVP)
 
-*   [ ] **[HU 2 Frontend]** Crear el componente `src/components/GarmentUpload.vue` con la interfaz de usuario para seleccionar y enviar archivos a la API.
+*   [X] **[HU 2 Frontend]** Crear el componente `src/components/GarmentUpload.vue` con la interfaz de usuario para seleccionar y enviar archivos a la API.
 
-*   [ ] **[HU 2 Frontend]** Implementar la vista src/views/ProfileView.vue para mostrar la lista de prendas del usuario (usando Tailwind CSS).
+*   [X] **[HU 2 Frontend]** Implementar la vista src/views/ProfileView.vue para mostrar la lista de prendas del usuario (usando Tailwind CSS).
 
 * * * * *
 
