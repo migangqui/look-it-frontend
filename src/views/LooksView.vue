@@ -2,7 +2,10 @@
   <div class="p-4 md:p-6 lg:p-8 max-w-4xl mx-auto">
     <div class="mb-6 flex items-start justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-gray-800">Looks</h1>
+        <h1 class="text-3xl font-bold text-gray-800">My Looks</h1>
+        <p class="text-sm text-gray-500 mt-1">
+          Saved outfits based on your wardrobe and preferences comings soon...
+        </p>
       </div>
       <AddButton :is-open="showForm" @toggle="showForm = !showForm" />
     </div>
@@ -12,8 +15,8 @@
       class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6 space-y-4 mb-8"
       @submit.prevent="handleSubmit"
     >
-      <p class="text-gray-500 mt-1">
-        Generate outfit suggestions based on your location, occasion and preferences.
+      <p class="text-black-500 mt-1">
+        <i>Generate outfit suggestions based on your location, occasion and preferences.</i>
       </p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>

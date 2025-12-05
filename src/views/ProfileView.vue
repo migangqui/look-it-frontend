@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <h1 class="text-xl font-bold mb-4">Profile</h1>
+    <h1 class="text-xl font-bold mb-4">My Profile</h1>
     <!-- Aquí se mostrarán las prendas del usuario -->
     <div v-if="user && user.email" class="mb-2">
       <span class="font-semibold">Email:</span> {{ user.email }}

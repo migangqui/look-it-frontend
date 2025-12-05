@@ -2,7 +2,12 @@
   <div class="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
     <!-- Header -->
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl font-bold text-gray-800">My Wardrobe</h1>
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800">My Wardrobe</h1>
+        <p class="text-sm text-gray-500 mt-1">
+          {{ garments.length }} total garments
+        </p>
+      </div>
       <!-- New Garment Button -->
       <AddButton :is-open="showUploadForm" @toggle="toggleUploadForm" />
     </div>

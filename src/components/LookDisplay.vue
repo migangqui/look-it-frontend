@@ -12,7 +12,7 @@
     <div class="text-center space-y-1">
       <p class="text-sm font-semibold text-gray-800">
         {{ garment.type || 'Garment' }}
-        <span v-if="garment.role" class="text-xs text-gray-500">({{ garment.role }})</span>
+        <span v-if="garment.role" class="text-xs text-gray-500">({{ (garment.role || 'Unnamed Garment').replaceAll('_', ' ') }})</span>
       </p>
       <p v-if="garment.color" class="text-xs text-gray-600">
         Color: {{ garment.color }}
