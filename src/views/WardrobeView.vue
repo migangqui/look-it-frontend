@@ -4,7 +4,7 @@
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl font-bold text-gray-800">My Wardrobe</h1>
       <!-- New Garment Button -->
-      <GarmentAddButton :is-open="showUploadForm" @toggle="toggleUploadForm" />
+      <AddButton :is-open="showUploadForm" @toggle="toggleUploadForm" />
     </div>
 
     <!-- Garment Upload Component -->
@@ -112,7 +112,7 @@ import GarmentUpload from '../components/GarmentUpload.vue';
 import GarmentEditModal from '../components/GarmentEditModal.vue';
 import GarmentCard from '../components/GarmentCard.vue';
 import GarmentDeleteModal from '../components/GarmentDeleteModal.vue';
-import GarmentAddButton from '../components/GarmentAddButton.vue';
+import AddButton from '../components/AddButton.vue';
 
 const garments = ref([]);
 const loading = ref(true);
@@ -250,4 +250,3 @@ onMounted(() => {
   animation: fade-in 0.3s ease-out;
 }
 </style>
-

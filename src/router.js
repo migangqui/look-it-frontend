@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/HomeView.vue';
 import ProfileView from './views/ProfileView.vue';
 import WardrobeView from './views/WardrobeView.vue';
+import LooksView from './views/LooksView.vue';
 import { authStore } from './stores/auth_store.js';
 
 const routes = [
@@ -14,6 +15,11 @@ const routes = [
   {
     path: '/wardrobe',
     component: WardrobeView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/looks',
+    component: LooksView,
     meta: { requiresAuth: true }
   }
 ];

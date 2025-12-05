@@ -7,5 +7,6 @@ export async function loginWithGoogle(token) {
     body: JSON.stringify({ id_token: token })
   });
   const data = await response.json();
+  console.log('Login response data:', data);
   return data;
 }
